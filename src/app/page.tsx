@@ -2,10 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { db } from "~/server/db";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { getImages } from "~/server/queries";
 
 export const dynamic = "force-dynamic";
 
-export default function HomePage() {
+export default function omePage() {
   return (
     <main className="">
       <SignedOut>
@@ -19,11 +20,8 @@ export default function HomePage() {
 }
 
 export async function Images() {
-  const images = await db.query.images.findMany({
-    orderBy: (model, { desc }) => desc(model.createdAt),
-  });
-
-  return (
+  const images = await getImages()
+   return (
     <div className="flex flex-wrap gap-4">
       {images.map((image) => (
         <div key={image.id} className="w-48">
