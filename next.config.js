@@ -30,4 +30,17 @@ const coreConfig = {
   },
 };
 
-export default coreConfig;
+import { withSentryConfig } from "@sentry/nextjs";
+
+const config = withSentryConfig(coreConfig, {
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-webpack-plugin#options
+
+  // Suppresses source map uploading logs during build
+  silent: true,
+  org: "t3gg",
+  project: "t3-gallery-video",
+});
+
+export default config;
+

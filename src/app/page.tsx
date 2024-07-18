@@ -21,11 +21,13 @@ export default function omePage() {
 
 export async function Images() {
   const images = await getImages()
-   return (
+  return (
     <div className="flex flex-wrap justify-center gap-4">
       {images.map((image) => (
         <div key={image.id} className="flex flex-col h-48 w-48">
-          <Image src={image.url} alt={image.name} style={{ objectFit: "fill" }} width={198} height={198} />
+          <Link href={`/imag/${image.id}`}>
+            <Image src={image.url} alt={image.name} style={{ objectFit: "fill" }} width={198} height={198} />
+          </Link>
           <div>{image.name}</div>
         </div>
       ))}
