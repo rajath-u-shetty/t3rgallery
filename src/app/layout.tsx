@@ -4,10 +4,11 @@ import "@uploadthing/react/styles.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
 import { Inter } from "next/font/google";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { TopNav } from "./_components/page";
+import { Toaster } from "~/components/ui/toaster";
 import { ourFileRouter } from "~/api/uploadthing/core";
-import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,8 +30,9 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
+      <CSPostHogProvider>
         <html lang="en">
-          <NextSSRPlugin 
+          <NextSSRPlugin
             /**
              * The `extractRouterConfig` will extract **only** the route configs
              * from the router to prevent additional information from being
@@ -46,8 +48,10 @@ export default function RootLayout({
               {modal}
             </div>
             <div id="modal-root" />
+            <Toaster />
           </body>
         </html>
+      </CSPostHogProvider>
     </ClerkProvider>
   );
 }
